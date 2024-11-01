@@ -582,6 +582,7 @@ def calculate_crop_list(full_page_box_list, bounding_box_list, angle_list,
                 bottom_weight /= total_tb_weight
                 top_weight /= total_tb_weight
                 new_ratio_based_crop_list.append((left, bottom - difference * bottom_weight,
+                                                  
                                                   right, top + difference * top_weight))
         final_crop_list = new_ratio_based_crop_list
 
@@ -647,6 +648,7 @@ def calculate_crop_list(full_page_box_list, bounding_box_list, angle_list,
 ##############################################################################
 
 def process_command_line_arguments(parsed_args, cmd_parser):
+    
     """Perform an initial processing on the some of the command-line arguments.  This
     is called first, before any PDF processing is done."""
     global args # This is global to avoid passing it to essentially every function.
@@ -658,6 +660,7 @@ def process_command_line_arguments(parsed_args, cmd_parser):
 
     if args.verbose:
         print(f"\nProcessing the PDF with pdfCropMargins (version {__version__})...")
+        
         print("Python version:", ex.python_version)
         print("System type:", ex.system_os)
         print(fitz.__doc__) # Print out PyMuPDF version info.
@@ -733,6 +736,7 @@ def process_command_line_arguments(parsed_args, cmd_parser):
         args.absolutePreCrop4 = args.absolutePreCrop * 4 # expand to 4 offsets
     if args.verbose:
         print("\nThe absolute pre-crops to be applied to each margin, in units of bp,"
+              
               " are:\n   ", args.absolutePreCrop4)
 
     if args.percentRetain and not args.percentRetain4:
@@ -774,7 +778,7 @@ def process_command_line_arguments(parsed_args, cmd_parser):
     if args.pageRatioWeights:
         for w in args.pageRatioWeights:
             if w <= 0:
-                print("\nError in pdfCropMargins: Negative weight argument passed "
+                print("\nError in pdfCropMargins: Non-positive weight argument passed "
                       "to pageRatiosWeights.", file=sys.stderr)
                 ex.cleanup_and_exit(1)
 
